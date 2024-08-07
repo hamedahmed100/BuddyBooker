@@ -1,6 +1,8 @@
 # BuddyBooker
 
 BuddyBooker is a web application designed to make scheduling appointments between two people simple and intuitive. Whether it's for a meeting, a catch-up with a friend, or a collaboration between colleagues, BuddyBooker has you covered!
+![Alt text](snapshot.png)
+
 
 ## Features
 
