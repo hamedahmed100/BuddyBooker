@@ -1,18 +1,33 @@
 import { Component } from '@angular/core';
 import { Appointment } from '../models/appointment';
+import { OnInit } from '@angular/core';
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css']
 })
-export class AppointmentListComponent {
+export class AppointmentListComponent implements OnInit {
 
   newAppointmentTitle: string = "";
   newAppointmentDate: Date = new Date();
 
 
+
   // Define an appointment object
   appointments: Appointment[] = [];
+
+  // Load appointments from local storage
+  constructor() {
+    console.log('constructor');
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit');
+    let savedAppointments = localStorage.getItem('appointments');
+    this.appointments = savedAppointments ? JSON.parse(savedAppointments) : []
+
+  }
+
 
   // Initialize the appointment object with dummy data
   addAppoinment() {
@@ -27,11 +42,14 @@ export class AppointmentListComponent {
       this.appointments.push(newAppointment);
       this.newAppointmentTitle = "";
       this.newAppointmentDate = new Date();
+
+      localStorage.setItem('appointments', JSON.stringify(this.appointments));
     }
   }
 
   // Delete an appointment
   deleteAppointment(id: number) {
     this.appointments = this.appointments.filter(appointment => appointment.id !== id);
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
 }
